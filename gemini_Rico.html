@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>洪瑞佑 Rico | 匹克球教練 - 工程師的邏輯教學，帶你輕鬆上手</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 變數與基礎設定 --- */
+        :root {
+            --primary: #CCFF00; /* 潮流螢光青檸 */
+            --primary-dark: #A3CC00;
+            --secondary: #0A192F; /* 科技深藍 */
+            --accent: #FF6B35; /* 溫暖琥珀橘 */
+            --bg-dark: #020C1B; /* 背景極深藍 */
+            --bg-light: #0B192C; /* 區塊深藍 */
+            --text-light: #F4F6F9;
+            --text-muted: #8892B0;
+            --font-main: 'Noto Sans TC', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* --- 核心組件 --- */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(204, 255, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(204, 255, 0, 0.4);
+            background: transparent;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-muted);
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 50px auto;
+            font-size: 1.1rem;
+        }
+
+        /* --- 導覽列 --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(2, 12, 27, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-light);
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+
+        /* --- 1. Hero 區塊 --- */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at 80% 20%, rgba(204, 255, 0, 0.08) 0%, transparent 50%), 
+                        linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            padding-top: 100px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-tag {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: inline-block;
+            border: 1px solid var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        #hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        #hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero-p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 650px;
+        }
+
+        /* --- 2. About 區塊 --- */
+        #about {
+            background-color: var(--bg-light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+        }
+
+        .highlight-box {
+            background: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 30px;
+        }
+
+        .highlight-box p {
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        .about-visual {
+            position: relative;
+            background: linear-gradient(135deg, rgba(204, 255, 0, 0.1), rgba(255, 107, 53, 0.1));
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-card {
+            background: var(--bg-dark);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+            text-align: left;
+        }
+
+        .stat-card:last-child { margin-bottom: 0; }
+
+        .stat-card h4 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        /* --- 3. Service 區塊 --- */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--bg-light);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(204, 255, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- 4. Process 區塊 --- */
+        #process {
+            background-color: var(--bg-light);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background-color: var(--primary);
+            border: 4px solid var(--bg-light);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left { left: 0; text-align: right; }
+        .right { left: 50%; }
+        .right::after { left: -8px; }
+
+        .process-content {
+            padding: 25px;
+            background: var(--bg-dark);
+            position: relative;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .process-number {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .process-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .process-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- 5. Trust 區塊 --- */
+        .trust-wrapper {
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-dark) 100%);
+            border-radius: 24px;
+            padding: 60px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .trust-message {
+            flex: 1;
+        }
+
+        .trust-message h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .trust-message p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .trust-features {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .trust-chip {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 18px 25px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .trust-chip-icon {
+            color: var(--primary);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        /* --- 6. Contact 區塊 --- */
+        #contact {
+            background-color: var(--bg-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .info-link {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .info-link:hover {
+            color: var(--primary);
+        }
+
+        .info-link span {
+            margin-right: 15px;
+            font-size: 1.3rem;
+        }
+
+        .contact-form {
+            background: var(--bg-dark);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px;
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: var(--font-main);
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255,255,255,0.05);
+        }
+
+        select.form-control option {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        /* --- 頁尾 --- */
+        footer {
+            background-color: var(--bg-dark);
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- 響應式網頁設計 (RWD) --- */
+        @media screen and (max-width: 992px) {
+            #hero h1 { font-size: 3rem; }
+            .about-grid, .contact-grid, .trust-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .trust-wrapper { flex-direction: column; padding: 40px; }
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 23px; right: auto; }
+            .left { text-align: left; }
+            .left { left: 0; }
+            .right { left: 0; }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--bg-dark);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+            .nav-menu.active { left: 0; }
+            .nav-item { margin: 20px 0; }
+            .menu-toggle { display: flex; }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+            #hero h1 { font-size: 2.5rem; }
+            .btn { width: 100%; text-align: center; margin-bottom: 15px; }
+            .btn-outline { margin-left: 0; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <header>
+        <nav class="nav-container">
+            <a href="#" class="logo">Rico<span>.Pickleball</span></a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#hero" class="nav-link">首頁</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">關於我</a></li>
+                <li class="nav-item"><a href="#service" class="nav-link">教學服務</a></li>
+                <li class="nav-item"><a href="#process" class="nav-link">科學教學法</a></li>
+                <li class="nav-item"><a href="#trust" class="nav-link">核心理念</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">立即預約</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 1. Hero 區塊 -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-tag">用工程思維，打出精準球技</span>
+                <h1>拿掉新手焦慮！<br>跟著跨界工程師<span>速成匹克球</span></h1>
+                <p class="hero-p">分不清網球羽球？擔心自己沒運動細胞？我用系統化邏輯幫你拆解球路，讓你第一次踏上球場就能流暢對打，瘋狂揮汗舒壓！</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn">免費諮詢/預約體驗</a>
+                    <a href="#service" class="btn btn-outline">探索課程方案</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. About 區塊 -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">關於 <span>洪瑞佑 Rico</span></h2>
+            <p class="section-subtitle">白天，我是與嚴謹數據為伍的工程師；下班後，我是將運動熱情轉化為嚴密教學邏輯的匹克球與網球雙棲教練。</p>
+            
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>不務正業，才能教得更精準</h3>
+                    <p>我熱愛網球的抽球對抗，更著迷於匹克球的靈活多變。正因為我擁有工程師的職涯背景，我非常理解「從零開始學習一項新技能」時大腦的運作機制。</p>
+                    <p>我不會只叫你「憑感覺出力」，而是把每一次發力、每一種球路規則，都當作一段乾淨的程式碼來優化。我會幫你把網球、羽球的既有基礎精準轉化，讓你免走彎路。</p>
+                    <div class="highlight-box">
+                        <p>💡 打破新手迷思：匹克球不是任何球類的替代品，它是你擴展生活圈、揮灑汗水、高效釋放職場壓力的全新社交生活方式。</p>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="stat-card">
+                        <h4>🔧 工程師的除錯邏輯</h4>
+                        <p>一眼看出你的動作盲點，精準調整，拒絕無效練習與運動傷害。</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>🎾 網球 × 匹克球雙棲背景</h4>
+                        <p>針對有羽網球基礎者，提供無痛發力轉換轉換指南，加速進階。</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>🌱 100% 新手友善環境</h4>
+                        <p>專為零基礎、自認缺乏運動細胞的學員設計的無痛上手課程。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Service 區塊 -->
+    <section id="service">
+        <div class="container">
+            <h2 class="section-title">教學 <span>服務方案</span></h2>
+            <p class="section-subtitle">無論你是想認識這項潮流運動的新朋友，還是渴望精進技術的愛好者，都有對應的系統化課程。</p>
+            
+            <div class="service-grid">
+                <div class="service-card">
+                    <span class="service-icon">🚀</span>
+                    <h3>零基礎新手體驗班</h3>
+                    <p>針對想認識匹克球、分不清規則的初學者。一堂課帶你搞懂基本規則、非過網區（Kitchen）防守，並體驗第一次流暢對打的快樂！</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🔥</span>
+                    <h3>技術精進與戰術班</h3>
+                    <p>適合已經會打，但遇到瓶頸的同學。深度優化截擊、第三球落點（Third Shot Drop）控球，並融入工程師的策略思維進行實戰盲點拆解。</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🍻</span>
+                    <h3>舒壓社交雙打團練</h3>
+                    <p>結合高強度揮汗與趣味對抗。在專業指導下安全運動，拋開工作壓力，結交志同道合、同樣熱愛生活的跨界新朋友。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Process 區塊 -->
+    <section id="process">
+        <div class="container">
+            <h2 class="section-title">科學化 <span>教學法</span></h2>
+            <p class="section-subtitle">拒絕傳統盲目揮拍！我將教學拆解為清晰的四步驟模組，保證安全、高效、好上手。</p>
+            
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="process-content">
+                        <span class="process-number">STEP 01</span>
+                        <h3>動作除錯（Debug）</h3>
+                        <p>像檢查程式碼一樣，第一時間掃描並修正可能導致受傷的發力姿勢，建立安全的運動骨架。</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="process-content">
+                        <span class="process-number">STEP 02</span>
+                        <h3>規則邏輯視覺化</h3>
+                        <p>用最白話的幾何圖解，讓你秒懂匹克球特殊規則與站位，徹底消除初學者的門檻焦慮。</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="process-content">
+                        <span class="process-number">STEP 03</span>
+                        <h3>網羽技術無痛轉換</h3>
+                        <p>如果你打過網球或羽球，我會精確指出手腕與重心轉移的「參數差異」，點石成金轉換優勢。</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="process-content">
+                        <span class="process-number">STEP 04</span>
+                        <h3>實戰對抗與舒壓</h3>
+                        <p>在設計好的戰術情境中流汗，達到高燃脂、釋放多巴胺的效果，同時建立雙打默契與社交圈。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Trust 區塊 -->
+    <section id="trust">
+        <div class="container">
+            <div class="trust-wrapper">
+                <div class="trust-message">
+                    <h3>為什麼選擇 <span>Rico 教練</span>？</h3>
+                    <p>我相信運動不該是高門檻的苦練，而是一種兼具邏輯美感與生活平衡的享受。在我的課堂上，沒有聽不懂的專業術語，只有被精準拆解的趣味技巧，和毫無保留的汗水與笑聲。</p>
+                    <a href="#contact" class="btn">跟我聊聊你的運動目標</a>
+                </div>
+                <div class="trust-features">
+                    <div class="trust-chip">
+                        <span class="trust-chip-icon">✓</span>
+                        <p>溫暖耐心的教學風格，全面包容新手失誤</p>
+                    </div>
+                    <div class="trust-chip">
+                        <span class="trust-chip-icon">✓</span>
+                        <p>系統化邏輯教案，學習進度肉眼可見</p>
+                    </div>
+                    <div class="trust-chip">
+                        <span class="trust-chip-icon">✓</span>
+                        <p>強調安全第一，遠離網球肘與膝蓋負擔</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Contact 區塊 -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">開始你的 <span>第一堂課</span></h2>
+            <p class="section-subtitle">送出填寫表單，我會親自回信與你討論最適合的球場地點與時間，一起上場揮汗吧！</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>聯絡資訊</h3>
+                    <p>有任何關於匹克球的疑問，或想洽談團體企業包班，隨時透過 Email 聯絡我。</p>
+                    <a href="mailto:rico.hung213@gmail.com" class="info-link">
+                        <span>📧</span> rico.hung213@gmail.com
+                    </a>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="bookingForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="name">姓名 / 稱呼</label>
+                            <input type="text" id="name" class="form-control" placeholder="例如：洪瑞佑" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">電子郵件</label>
+                            <input type="email" id="email" class="form-control" placeholder="rico.hung213@gmail.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="level">你目前的運動背景</label>
+                            <select id="level" class="form-control" required>
+                                <option value="" disabled selected>請選擇...</option>
+                                <option value="none">完全零基礎，想體驗看看</option>
+                                <option value="tennis-badminton">有網球或羽球底子，想轉戰匹克球</option>
+                                <option value="played">打過幾次匹克球，想精進瓶頸技術</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="message">想對教練說的話 / 其他需求</label>
+                            <textarea id="message" class="form-control" rows="4" placeholder="告訴我你想上課的時間、地點，或是你對打球的任何焦慮..."></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">送出預約諮詢</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer>
+        <div class="container" style="padding: 0;">
+            <p>&copy; 2026 Rico Hung 洪瑞佑. All Rights Reserved. | 跨界工程師的匹克球筆記</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript 互動功能 -->
+    <script>
+        // 行動端選單切換
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // 點擊導覽列項目後自動關閉行動端選單
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // 表單送出模擬 (UX 友好的提示)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`哈囉 ${name}！收到你的匹克球課堂預約請求了。我會盡快透過 Email 回覆你，期待一起上場除錯（Debug）你的球技、痛快揮汗！`);
+            document.getElementById('bookingForm').reset();
+        }
+    </script>
+</body>
+</html>
